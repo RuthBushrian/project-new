@@ -7,7 +7,8 @@ import ImageComponent from './imageRes';
 function Result(props) {
 
     const { data, loading, error, refetch } = props.details ? Get(`document/file/${props.details.idfile}`) : {};
-
+    console.log(data);
+      
     if (loading) {
         return <p>Loading...</p>;
     }
@@ -33,7 +34,9 @@ function Result(props) {
                                     style={{ height: "500px" }}></iframe> */}
                                     <ImageComponent src={`http://localhost:4321/document/${props.details.idfile}/${data.name}/${data.docType}`}></ImageComponent>
                                 <p></p></div>
-                            <div>מספר מסמך: {data.iddocument} תוצאת מסמך: {data.result}</div>
+                                {console.log(data)}
+                            {!props.isDoc ? <div>מספר מסמך: {data.iddocument} תוצאת מסמך: {data.result}</div>: 
+                            <div>{data.name}.{data.docType}</div>} 
                         </div>
                     </div>
                 </div>
@@ -43,7 +46,7 @@ function Result(props) {
 
     return (<>
         {data && <div dir={'ltr'}>
-            <Carousel value={data} numVisible={1} numScroll={1} orientation="horizontal" verticalViewPortHeight="360px"
+            <Carousel value={data} numVisible={props.isDoc == true?3:1} numScroll={1} orientation="horizontal" verticalViewPortHeight="360px"
                 itemTemplate={ProductTemplate} />
         </div>}
     </>

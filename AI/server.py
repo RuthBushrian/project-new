@@ -26,7 +26,7 @@ def prepare_image(image_path):
     image_size = (128,128)
     return np.array(convert_to_ela_image(image_path, 90).resize(image_size)).flatten() / 255.0
 
-model = load('C:\\Users\\Ruti\\Desktop\\הפרוייקט - סופי\\end end 22\\project\\AI\\model.joblib')
+model = load('C:\\Users\\Ruti\\Desktop\\הפרוייקט - סופי\\model.joblib')
 class_names = ['מזוייף', 'אמיתי']
 
 app = FastAPI()

@@ -9,6 +9,7 @@ import SubmmitedDialog from '../submmitedDialog';
 import UserContext from "../user/UserContext";
 import { iconV, iconX } from '../../Constant';
 import PDF from '../../images/PDF.png'
+import Result from './result';
 
 
 export default function UploadDocuments(props) {
@@ -129,7 +130,8 @@ export default function UploadDocuments(props) {
       </p>
         <p>התיק והמסמכים המצורפים נשלחים כעת לבדיקה ואימות, בעוד זמן קצר תוכלו לצפות בתוצאות. הבדיקה הינה חדשנית ואמינה ואחוזי ההצלחה שלה גבוהים. אולם עם זאת עלינו לציין שהיא מבוססת על בינה מלאכותית, וכמו רוב הטכנולוגיות הללו היא אינה באמינות של מאת האחוזים</p></> :
       <p>המסמכים הועלו בהצלחה וכעת נשלחים לבדיקה</p>
-  return (<>
+  return <>{props.status == 0 ? (<>
+  {console.log(props.status)}
     {visible &&
       <SubmmitedDialog header={header} content={content} icon={iconV} onConfirm={() => { setVisible(false); isUpdate ? onTemplateClear() : props.onReset(formData.idfile); }}></SubmmitedDialog>}
     {visibleErr &&
@@ -153,5 +155,6 @@ export default function UploadDocuments(props) {
           isUpdate ? addDocuments() : createFile()
         }} disabled={props.status > 2} />
     </div>
-  </>);
+  </>): <div style = {{textAlign:'center', marginTop: '2%'}}><Result details={props.details} isDoc = {true}></Result></div>}
+  </>
 }
