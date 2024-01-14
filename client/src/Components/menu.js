@@ -51,7 +51,10 @@ export default function Menu() {
     <div style={{ display: 'flex' }}>
 
       <div className="card" style={{ marginBottom: "25px", flex: 1}}>
-        <div className="flex card-container indigo-container text-800" style={{"backgroundColor":"yellow"}}>
+        <div className="flex card-container indigo-container text-800" style={{"backgroundColor":"bg-blue-800"}}>
+        <div style={{ marginRight: '10px' }}>
+            <img src="logo.png" alt="Logo" style={{height: '60px', width: 'auto' }} />
+          </div>
           <div className="flex-1 bg-blue-800 text-blue-900">
             <TabMenu  model={items} className="bg-blue-800 "/>
           </div>
