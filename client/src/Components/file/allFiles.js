@@ -23,7 +23,7 @@ function AllFiles() {
   const [files, setFiles] = useState([]);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [globalFilter, setGlobalFilter] = useState(null);
-  const [statuses] = useState(["בבדיקה", "נבדק", "הועבר למנהל", "נסגר"]);
+  const [statuses] = useState([ "נבדק", "הועבר למנהל", "נסגר"]);
   const [filters, setFilters] = useState({
     IDnumberOfApplicant: {
       value: null,
