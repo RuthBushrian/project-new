@@ -8,9 +8,7 @@ const dashRouter= require('./routes/dashboard');
 const managerRouter = require('./routes/manager');
 const stageRouter= require('./routes/stage')
 const document_resultRouter= require('./routes/document_result')
-const a = require('./routes/a')
 const path = require('path')
-
 
 const app=express();
 app.use(cors());
@@ -33,9 +31,6 @@ app.use("/manager",managerRouter);
 app.use("/dash",dashRouter);
 app.use("/stage", stageRouter);
 app.use("/result", document_resultRouter);
-app.use("/a", a);
-
-
 
 app.all('*', (req, res) => {
     res.status(404)
@@ -49,8 +44,6 @@ app.all('*', (req, res) => {
     }
 })
 app.use(express.static(path.join('a', 'public')));
-
-
 
 app.listen(PORT,()=>{
     console.log(`connected ${PORT}`);

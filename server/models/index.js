@@ -1,8 +1,6 @@
 const dbConfig = require('../dbConfig/dbConfig');
 const {Sequelize, DataTypes} = require('sequelize');
 
-
-
 const sequelize = new Sequelize(
     dbConfig.DB,
     dbConfig.USER,
@@ -36,28 +34,21 @@ db.statuses = require('./status.js')(sequelize, DataTypes)
 db.documents=require('./document.js')(sequelize, DataTypes);
 db.companies=require('./company.js')(sequelize, DataTypes);
 db.managers=require('./manager.js')(sequelize, DataTypes);
-db.permissions=require('./permission.js')(sequelize, DataTypes);
-db.algorithms=require('./algorithm.js')(sequelize, DataTypes);
-db.profession_units=require('./profession_unit.js')(sequelize, DataTypes);
 db.document_results=require('./document_result.js')(sequelize, DataTypes);
 db.stages_of_progress_of_files=require('./stages_of_progress_of_file.js')(sequelize, DataTypes);
 db.languages= require('./language')(sequelize, DataTypes);
 
 db.managers.belongsTo(db.companies, {foreignKey:'companyId'})
 db.officers.belongsTo(db.managers, {foreignKey:'managerId'})
-db.officers.belongsTo(db.profession_units, {foreignKey:'professionUnitId'})
-// db.officers.belongsTo(db.permissions, {foreignKey:'permissionId'})
 db.files.belongsTo(db.statuses, {foreignKey:'statusId'})
 db.files.belongsTo(db.officers, {foreignKey:'officerId'})
 db.documents.belongsTo(db.files, {foreignKey:'fileId', onDelete: 'Cascade', onUpdate: 'Cascade'})
 db.documents.belongsTo(db.languages, {foreignKey:'languageId'})
 db.document_results.belongsTo(db.documents,{foreignKey:'documentId', onDelete: 'Cascade', onUpdate: 'Cascade'} )
-db.document_results.belongsTo(db.algorithms,{foreignKey:'algorithmId'})
 db.stages_of_progress_of_files.belongsTo(db.statuses, {foreignKey:'statusId'})
 db.stages_of_progress_of_files.belongsTo(db.files, { foreignKey: 'fileId', onDelete: 'Cascade', onUpdate: 'Cascade'})
 db.files.hasMany(db.stages_of_progress_of_files, { foreignKey: 'fileId', onDelete: 'Cascade', onUpdate: 'Cascade'})
 db.files.hasMany(db.documents, { foreignKey: 'fileId', onDelete: 'Cascade', onUpdate: 'Cascade'})
-
 db.managers.hasMany(db.officers, { foreignKey: 'managerId'})
 
 

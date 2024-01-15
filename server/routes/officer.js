@@ -1,9 +1,6 @@
 const express = require("express");
-
 const officerCntrl = require("../controllers/officer");
-
 const officerRouter = express.Router();
-
 
 officerRouter.route("/:id")
     .get(officerCntrl.getOfficerByID)

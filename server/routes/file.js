@@ -16,7 +16,4 @@ fileRouter.route("/:id")
 fileRouter.route("/getfiles")
     .post(fileCntrl.getAllFiles)
 
-
-
-
 module.exports = fileRouter;

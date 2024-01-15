@@ -3,12 +3,8 @@ import { TabMenu } from 'primereact/tabmenu';
 import { useNavigate } from "react-router-dom"
 import UserContext from "./user/UserContext";
 import { Get } from '../Hooks/fetchData';
-import { Avatar } from 'primereact/avatar';
-import { Dropdown } from 'primereact/dropdown';
-
 
 export default function Menu() {
-
 
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
@@ -40,16 +36,10 @@ export default function Menu() {
     {
       label: ' ', disabled:true, style:{width:"55%"}
     },
-//     {
-//       label: <div className='grid'><div className='col-6' style={{marginTop:"25px"}}>{user.name}</div><div className='col-6'>
-//         <Avatar  image={`http://localhost:4321/officer/image/${user.path}/${user.type}`} size="xlarge" shape="circle" /></div></div>,
-//  command: () => { navigate("/Setting") }
-//     }
   ];
 
   return (
     <div style={{ display: 'flex' }}>
-
       <div className="card" style={{ marginBottom: "25px", flex: 1}}>
         <div className="flex card-container indigo-container text-800" style={{"backgroundColor":"bg-blue-800"}}>
         <div style={{ marginRight: '10px' }}>
@@ -60,9 +50,6 @@ export default function Menu() {
           </div>
         </div>
       </div>
-      {/* <div style={{ padding: '10px' }}>
-        <h3>{user.name}</h3>
-      </div> */}
     </div>
 
   )

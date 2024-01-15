@@ -2,11 +2,8 @@ import React from "react"
 import { Dialog } from "primereact/dialog"
 import { Button } from "primereact/button";
 
-
-
 export default function SubmmitedDialog(props)
 {
-
     const footerContent = (
         <div style={{textAlign:"center"}}>
             <Button label="אישור"onClick={() => {props.onConfirm();}} className="p-button-text" />

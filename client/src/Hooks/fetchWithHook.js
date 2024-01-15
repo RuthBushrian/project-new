@@ -19,7 +19,6 @@ const Post = (url, body = {}) => {
 
 const Get = (url) => {
     const [{ data, loading, error }, refetch] = useAxios(URL + url);
-    console.log(URL + url);
     if (error)
         console.log(error);
     return { data, loading, error, refetch };

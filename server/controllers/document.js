@@ -3,8 +3,8 @@ const fileDal = require('../dal/file');
 const { deleteDocument, uploadDocument, getOpenDocument, verifyDocument } = require('../service/document')
 const stageDal = require('../dal/stage')
 const axios = require('axios')
+
 exports.addDocuments = (req, res) => {
-  console.log("\n\n\n\naddDocuments");
 
   try {
     this.addDocuments2(req.body.documents, req.params.id)
@@ -31,7 +31,6 @@ exports.addDocuments2 = (documents, fileId) => {
       });
 
       // send to check
-
       checkDocks(data, fileId)
     })
 }
@@ -124,8 +123,7 @@ exports.getDocumentById = (req, res) => {
       if (data) {
         res.send(data);
       } else {
-        console.log(data);
-        res.status(404).send({
+          res.status(404).send({
           message: `Cannot find Document with id=${id}.`
         });
       }
@@ -139,12 +137,8 @@ exports.getDocumentById = (req, res) => {
 
 
 exports.getOpenDocumentById = (req, res, next) => {
-
   getOpenDocument(res, `${process.env.PATH_FILE}${req.params.file}`, `${req.params.document}.${req.params.docType}`);
-
 }
-
-
 
 exports.deleteDocumentById = async (req, res) => {
   const id = req.params.id;

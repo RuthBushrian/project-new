@@ -1,7 +1,5 @@
 const managerDal= require('../dal/manager')
 
-   
-
 exports.getManagerByOfficerID=(req, res)=>{
     const id =req.params.id;
     managerDal.getManagerByOfficerID(id)
@@ -14,7 +12,7 @@ exports.getManagerByOfficerID=(req, res)=>{
             });
         }
         })
-        .catch(err => {
+        .catch(() => {
         res.status(500).send({
             message: "Error retrieving manager with Officer id=" + id
         });

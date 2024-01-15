@@ -22,7 +22,7 @@ export default function Setting() {
     const [formData, setFormData] = useState({});
     const [txt, setTxt] = useState('');
     const [aPass, setAPass] = useState(false)
-    const {data, loading, error , refetch:r}= Get1(`officer/num/ofDocuments/${user.idofficer}`);
+    const {data, refetch:r}= Get1(`officer/num/ofDocuments/${user.idofficer}`);
     const check = async () => {
         setTxtvi(true);
         setShowMessage(false)
@@ -41,10 +41,7 @@ export default function Setting() {
         }
         else
             setTxt("הסיסמא שגויה נסה שנית")
-
     }
-
-
 
     const formik = useFormik({
 
@@ -69,10 +66,6 @@ export default function Setting() {
             if ((data.password != ''))
                 if (data.password.localeCompare(data.aPass) != 0)
                     errors.aPass = 'הסיסמאות לא תואמות אנא נסה שנית'
-                
-
-
-
             return errors;
         },
         onSubmit: (data) => {
@@ -111,8 +104,6 @@ export default function Setting() {
         </React.Fragment>
     );
 
-    
-
     const valueTemplate = (value1, value2) => {
         return (
             <React.Fragment>
@@ -120,7 +111,6 @@ export default function Setting() {
             </React.Fragment>
         );
     };
-
 
     return (
         <div className="form-demo" style={{ fontFamily: "Segoe UI" }}>
@@ -178,7 +168,6 @@ export default function Setting() {
                             </span>
                             {getFormErrorMessage('aPass')}
                         </div></>}
-                        {console.log(data)}
                         {data&& 
                         <>
                         <div>כמות המסמכים שנותרו</div>
@@ -186,8 +175,6 @@ export default function Setting() {
                         <div className="card">
                             <ProgressBar value={parseInt((data["num"]/user.numOfDocuments)*100)} displayValueTemplate={()=>valueTemplate(data["num"],user.numOfDocuments) }></ProgressBar>
                         </div><br/><br/></>}
-
-
                         <Button type="submit" label="אישור" className="mt-2" />
                     </form>
                 </div>

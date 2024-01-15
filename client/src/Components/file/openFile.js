@@ -5,9 +5,7 @@ import UploadDocuments from './uploadDocuments';
 import { useLocation } from "react-router-dom"
 import ViewResults from './viewResults';
 import { Get } from '../../Hooks/fetchWithHook'
-import Progress from './progress';
 import { useNavigate } from "react-router-dom"
-
 
 export default function OpenFileWithSteps() {
   const props = useLocation().state;
@@ -15,7 +13,7 @@ export default function OpenFileWithSteps() {
   const [enabledIndex, setEnabledIndex] = useState(props ? props.file.result != 2 ? 2 : 1 : 0);
   const [details, setDetails] = useState({});
   const [files, setFiles] = useState([]);
-  const { data, loading, error, refetch } = props ? Get(`file/${props.file.idfile}`) : {};
+  const { data, refetch } = props ? Get(`file/${props.file.idfile}`) : {};
   useEffect(() => {
     setDetails(data);
   }, [data])
@@ -36,14 +34,8 @@ export default function OpenFileWithSteps() {
 
   const navigate = useNavigate();
 
-
   const handleReset = (fileId) => {
     navigate(`/File`, { state: { file: {idfile:  fileId}} });
-
-    // setActiveIndex(2);
-    // setEnabledIndex(2);
-    // setDetails({});
-    // setFiles([]);
   };
 
   const status = details && details.statusId ? details.statusId : 0;
@@ -77,9 +69,7 @@ export default function OpenFileWithSteps() {
   return (
     <>
       <Steps model={steps} activeIndex={activeIndex} onSelect={handleStepSelect} readOnly={false} />
-      {/* <div style={{ margin: '1% 1% 1% 1%' }}> */}
         {renderStepContent()}
-      {/* </div> */}
     </>
   );
 }

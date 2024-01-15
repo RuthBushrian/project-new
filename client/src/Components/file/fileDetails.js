@@ -92,8 +92,8 @@ export default function FileDetail(props) {
                             <div className="field">
                                 <span className="p-float-label">
                                     <InputText id="idFile" name="idFile" value={details.idfile}
-                                        disabled={true} /*style= {{opacity:1}}*/ />
-                                    <label /*style= {{opacity:1}}*/ htmlFor="idFile">מספר תיק</label>
+                                        disabled={true} />
+                                    <label htmlFor="idFile">מספר תיק</label>
                                 </span>
                             </div>}
 

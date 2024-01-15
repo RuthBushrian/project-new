@@ -1,13 +1,11 @@
 import { Get } from '../../Hooks/fetchWithHook';
 
 function GetNum(props) {
-    const { data, loading, error, refetch } = Get(props.path);
+    const { data, loading, error } = Get(props.path);
     if (loading) return <p>Loading...</p>;
     if (error) { return <p>Error!</p>; }
     return (
-
         <span>{data[0].num}</span>
-
     )
 }
 

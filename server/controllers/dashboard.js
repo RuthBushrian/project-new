@@ -1,5 +1,4 @@
 const dashDal=require('../dal/dashboard');
-const file = require('../models/file');
 
 exports.getLastFiles = (req, res) => {
     dashDal.getLastFiles(parseInt(req.params.num), parseInt(req.params.officerId))
@@ -14,7 +13,6 @@ exports.getLastFiles = (req, res) => {
     })
 
     };
-
 
     exports.getGrafOfFiles = (req, res) => {
 

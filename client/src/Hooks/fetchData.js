@@ -1,15 +1,26 @@
 import axios from 'axios';
 import { URL } from '../Constant';
 
- const Delete= async(url, body={})=>
+const Get = async(url)=>
 {
   try{
-    const res= await axios.delete(URL+url, {data:body});
+    const res= await axios.get(`${URL}${url}`);
+    return res;
   }
   catch(err){
   console.error(`error ${err}`);
   }
 
+}
+
+ const Delete= async(url, body={})=>
+{
+  try{
+    await axios.delete(URL+url, {data:body});
+  }
+  catch(err){
+  console.error(`error ${err}`);
+  }
 }
 
  const Create= async(url, filesToCreate)=>
@@ -21,9 +32,7 @@ import { URL } from '../Constant';
   catch(err){
   console.error(`error ${err}`);
   }
-
 }
-
 
 const Update= async(url, objToUpdate)=>
 {
@@ -34,20 +43,6 @@ const Update= async(url, objToUpdate)=>
   catch(err){
   console.error(`error ${err}`);
   }
-
-}
- const Get = async(url)=>
-{
-  console.log("${URL}${url}");
-  console.log(`${URL}${url}`);
-  try{
-    const res= await axios.get(`${URL}${url}`);
-    return res;
-  }
-  catch(err){
-  console.error(`error ${err}`);
-  }
-
 }
 
 const FetchFileData = async (path) => {
@@ -59,6 +54,5 @@ const FetchFileData = async (path) => {
     console.error(error);
   }
 };
-
 
 export {Delete, Create, Update, Get,FetchFileData}

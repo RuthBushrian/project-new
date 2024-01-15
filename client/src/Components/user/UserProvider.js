@@ -2,12 +2,10 @@ import { useState, useEffect } from "react";
 import { Get } from "../../Hooks/fetchWithHook";
 import UserContext from './UserContext';
 
-
 const UserProvider = ({ children, userId }) => {
-
     const [user, setUser] = useState({});
-    const { data, error, refetch } = Get(`officer/${userId}`);
-
+    const { data, refetch } = Get(`officer/${userId}`);
+    
     useEffect(() => {
         if (userId) {
             refetch()

@@ -1,9 +1,10 @@
 import Result from "./result";
 import { Update } from "../../Hooks/fetchData";
 import { Button } from 'primereact/button';
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Dialog } from "primereact/dialog";
 import Progress from "./progress";
+
 const ViewResults = (props) => {
 
     const status = props.status;

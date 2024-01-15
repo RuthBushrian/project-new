@@ -1,9 +1,8 @@
-import Graf from './graf';
+import Graf from './graph';
 import GetLasts from './lastFiles';
 import { Active, Fake, Check, Checked } from './numOfFiles';
 import React, { useContext } from 'react';
 import UserContext from "../user/UserContext";
-
 
 const Dashboard = () => {
 

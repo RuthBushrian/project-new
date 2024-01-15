@@ -11,7 +11,6 @@ import { iconV, iconX } from '../../Constant';
 import PDF from '../../images/PDF.png'
 import Result from './result';
 
-
 export default function UploadDocuments(props) {
   const { user } = useContext(UserContext);
   const [formData, setFormData] = useState(props.details);
@@ -60,9 +59,7 @@ export default function UploadDocuments(props) {
   };
 
   const handleFileUpload = async (event) => {
-    console.log('handleFileUpload');
     const toTtpe = { "image/jpeg": "jpeg", "application/pdf": "pdf", "image/png": "png", "image/gif": "gif" }
-
     const curFiles = [...selectedFiles];
     for (let i = 0; i < event.files.length; i++) {
       const file = event.files[i];
@@ -79,22 +76,17 @@ export default function UploadDocuments(props) {
       }
       reader.readAsDataURL(file);
     }
-
-    console.log({ curFiles });
     setSelectedFiles(curFiles);
   }
   const chooseOptions = { icon: 'pi pi-fw pi-images', iconOnly: true, className: 'custom-choose-btn p-button-rounded p-button-outlined' };
   const uploadOptions = { icon: 'pi pi-fw pi-cloud-upload', iconOnly: true, className: 'custom-upload-btn p-button-success p-button-rounded p-button-outlined' };
   const cancelOptions = { icon: 'pi pi-fw pi-times', iconOnly: true, className: 'custom-cancel-btn p-button-danger p-button-rounded p-button-outlined' };
   const createFile = async () => {
-    console.log(user.idofficer);
     const used = await Get(`officer/num/ofDocuments/${user.idofficer}`)
-    console.log(used);
     if (used.data.num < selectedFiles.length) {
       setVisibleErr(true);
     }
     else {
-      console.log({ selectedFiles });
       const fileToCreate = {
         ...formData,
         "statusId": 1,
@@ -108,10 +100,8 @@ export default function UploadDocuments(props) {
   }
 
   const addDocuments = async () => {
-
     await Create(`$document/${props.details.idfile}`, { documents: selectedFiles });
     setVisible(true);
-
   }
 
   const header = isUpdate ? "😊 התיק עודכן בהצלחה" : "😊 התיק נפתח בהצלחה"
@@ -131,14 +121,12 @@ export default function UploadDocuments(props) {
         <p>התיק והמסמכים המצורפים נשלחים כעת לבדיקה ואימות, בעוד זמן קצר תוכלו לצפות בתוצאות. הבדיקה הינה חדשנית ואמינה ואחוזי ההצלחה שלה גבוהים. אולם עם זאת עלינו לציין שהיא מבוססת על בינה מלאכותית, וכמו רוב הטכנולוגיות הללו היא אינה באמינות של מאת האחוזים</p></> :
       <p>המסמכים הועלו בהצלחה וכעת נשלחים לבדיקה</p>
   return <>{props.status == 0 ? (<>
-  {console.log(props.status)}
     {visible &&
       <SubmmitedDialog header={header} content={content} icon={iconV} onConfirm={() => { setVisible(false); isUpdate ? onTemplateClear() : props.onReset(formData.idfile); }}></SubmmitedDialog>}
     {visibleErr &&
       <SubmmitedDialog header={"שגיאה"} content={"אין ברשותך מספיק מסמכים בקש מהמנהל לקנות חבילה נוספת"} icon={iconX} onConfirm={() => { setVisibleErr(false); }}></SubmmitedDialog>}
 
     <div className="flex card-container blue-container overflow-hidden" style={{ fontFamily: 'fantasy', margin: '2.5% 20% 0.5% 20%' }}>
-
       <div className="flex-grow-1">
         <Tooltip target=".custom-choose-btn" content="Choose" position="bottom" />
         <Tooltip target=".custom-upload-btn" content="Upload" position="bottom" />
@@ -155,6 +143,6 @@ export default function UploadDocuments(props) {
           isUpdate ? addDocuments() : createFile()
         }} disabled={props.status > 2} />
     </div>
-  </>): <div style = {{textAlign:'center', marginTop: '2%'}}><Result details={props.details} isDoc = {true}></Result></div>}
+  </>) : <div style={{ textAlign: 'center', marginTop: '2%' }}><Result details={props.details} isDoc={true}></Result></div>}
   </>
 }

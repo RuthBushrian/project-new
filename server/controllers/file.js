@@ -1,133 +1,116 @@
-const fileDal=require('../dal/file');
+const fileDal = require('../dal/file');
 const stageDal = require("../dal/stage");
-const {createFolder, deleteFolder}= require("../service/folder")
-const {addDocuments2}= require('./document')
-const {uploadDocument}= require("../service/document");
-const { login } = require('./officer');
+const { createFolder, deleteFolder } = require("../service/folder")
+const { addDocuments2 } = require('./document')
 
 exports.addFile = (req, res) => {
-    console.log("addFile");
-    fileDal.addFile(req.body) 
-   .then(file=>
-      {
-        if(file)
-        { 
-          const folderName = process.env.PATH_FILE+file.idfile;
-          
-          createFolder(folderName);
+  fileDal.addFile(req.body)
+    .then(file => {
+      if (file) {
+        const folderName = process.env.PATH_FILE + file.idfile;
 
-          addDocuments2(req.body.documents, file.idfile);
-          
-          stageDal.addStage({fileId:file.idfile,statusId:1, date:new Date() })
-          .then((stage)=>
-          {
-          console.log(stage);
-          res.status(201).json({ message: 'created file', body: file });
-        })
-        }
-        else 
-          return res.status(400).json({ message: 'error' })
+        createFolder(folderName);
+
+        addDocuments2(req.body.documents, file.idfile);
+
+        stageDal.addStage({ fileId: file.idfile, statusId: 1, date: new Date() })
+          .then(() => {
+            res.status(201).json({ message: 'created file', body: file });
+          })
       }
+      else
+        return res.status(400).json({ message: 'error' })
+    }
     )
     .catch(err => {
       res.status(500).send({
-          message: err.message|| "Error creating file with id=" + id
+        message: err.message || "Error creating file with id=" + id
       })
     });
-    };
+};
 
-    
-exports.getFileByID=(req, res)=>{
-    const id =req.params.id;
-    fileDal.getFileByID(id).then(data => {
-        if (data) {
-            res.send(data);
-        } else {
-            res.status(404).send({
-            message: `Cannot find File with id=${id}.`
-            });
-        }
-        })
-        .catch(err => {
-        res.status(500).send({
-            message: err.message||"Error retrieving file with id=" + id
-        });
+exports.getFileByID = (req, res) => {
+  const id = req.params.id;
+  fileDal.getFileByID(id).then(data => {
+    if (data) {
+      res.send(data);
+    } else {
+      res.status(404).send({
+        message: `Cannot find File with id=${id}.`
+      });
+    }
+  })
+    .catch(err => {
+      res.status(500).send({
+        message: err.message || "Error retrieving file with id=" + id
+      });
     });
 }
 
-exports.getAllFiles=(req, res)=>{
-    fileDal.getAllFiles(req.body)
+exports.getAllFiles = (req, res) => {
+  fileDal.getAllFiles(req.body)
     .then(data => {
-        res.send(data);
-        })
-        .catch(err => {
-        res.status(500).send({
-            message:
-            err.message || "Some error occurred while retrieving files."
-        });
-        });
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving files."
+      });
+    });
 }
 
 
-exports.updateFile=async(req, res)=>{
-  const id=req.params.id;
+exports.updateFile = async (req, res) => {
+  const id = req.params.id;
   let lfile;
-  try{
-    const data= await fileDal.getFileByID(id);
+  try {
+    const data = await fileDal.getFileByID(id);
     if (data) {
-      lfile=data;
-    } 
+      lfile = data;
+    }
     else {
       res.status(404).send({
         message: `Cannot find file with id= ${id}.`,
       });
     }
   }
-  catch(err){
+  catch (err) {
     res.status(500).send({
       message: `Error retrieving last file with id= ${id}.`,
     });
   };
-  
-  if(req.body.statusId && lfile.statusId!=req.body.statusId){
+
+  if (req.body.statusId && lfile.statusId != req.body.statusId) {
     const ts = Date.now();
-  stageDal
-    .addStage({fileId:id,statusId:req.body.statusId,date:ts})
-    .then()
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || "Some error occurred while creating the Stage.",
-      });
-    });
-  }
-  fileDal.updateFile(id ,req.body)
-  .then(num => {
-    console.log("num: ");
-    console.log(num); 
-      // if (num == 1) {
-        res.send({
-          message: "File was updated successfully."
+    stageDal
+      .addStage({ fileId: id, statusId: req.body.statusId, date: ts })
+      .then()
+      .catch((err) => {
+        res.status(500).send({
+          message: err.message || "Some error occurred while creating the Stage.",
         });
-      // } 
-      // else {
-      //   res.send({
-      //     message: `Cannot update File with id=${id}. Maybe File was not found or req.body is empty!`
-      //   });
-      // }
+      });
+  }
+  fileDal.updateFile(id, req.body)
+    .then(() => {
+      res.send({
+        message: "File was updated successfully."
+      });
     })
     .catch(err => {
       res.status(500).send({
-        message: err.message||"Error updating File with id=" + id
+        message: err.message || "Error updating File with id=" + id
       });
     });
 
 }
 
-exports.deleteFileByID=(req, res)=>{//????
-    const id = req.params.id;
-   fileDal.deleteFileByID(id).then(num => {
+exports.deleteFileByID = (req, res) => {
+  const id = req.params.id;
+  fileDal.deleteFileByID(id).then(num => {
     if (num == 1) {
-      const folderName=  process.env.PATH_FILE+id;
+      const folderName = process.env.PATH_FILE + id;
       deleteFolder(folderName);
       res.send({
         message: "File was deleted successfully!"
@@ -138,51 +121,47 @@ exports.deleteFileByID=(req, res)=>{//????
       });
     }
   })
-  .catch(err => {
-    res.status(500).send({
-      message: err.message||"Could not delete File with id=" + id
+    .catch(err => {
+      res.status(500).send({
+        message: err.message || "Could not delete File with id=" + id
+      });
     });
-  });
 }
 
-  exports.deleteFiles= (req, res)=>{
-    
-    const filesToDelete= req.body.filesToDelete;
+exports.deleteFiles = (req, res) => {
 
-    if(filesToDelete.length==0)
-    {
-      res.send({
-        message: "there are no files to delete"
-      });
-    }
-    else
-    {
-     fileDal.deleteFiles(filesToDelete)
-     .then(num => {
-      console.log(num);
-      filesToDelete.forEach(id => {
-         const folderName=  process.env.PATH_FILE+id;
-       deleteFolder(folderName);
-      });
-      if (num == filesToDelete.length) {
-       res.send({
-         message: "Files were deleted successfully!"
-       });
-     } 
-     else {
-       res.send({
-         message: `only ${num} files deleted successfully!`
-       });
-     }
-    
-    })
-   
-   .catch(err => {
-    console.log(err.message);
-     res.status(500).send({    
-       message: err.message||"Could not delete Files"
-     }); 
-    })
+  const filesToDelete = req.body.filesToDelete;
 
-    }
+  if (filesToDelete.length == 0) {
+    res.send({
+      message: "there are no files to delete"
+    });
+  }
+  else {
+    fileDal.deleteFiles(filesToDelete)
+      .then(num => {
+        filesToDelete.forEach(id => {
+          const folderName = process.env.PATH_FILE + id;
+          deleteFolder(folderName);
+        });
+        if (num == filesToDelete.length) {
+          res.send({
+            message: "Files were deleted successfully!"
+          });
+        }
+        else {
+          res.send({
+            message: `only ${num} files deleted successfully!`
+          });
+        }
+
+      })
+
+      .catch(err => {
+        console.log(err.message);
+        res.status(500).send({
+          message: err.message || "Could not delete Files"
+        });
+      })
+  }
 }

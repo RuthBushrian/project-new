@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import { Timeline } from 'primereact/timeline';
 import { Sidebar } from 'primereact/sidebar';
 import { Button } from 'primereact/button';
-
 import { Get } from "../../Hooks/fetchWithHook"
 
 export default function Progress(props) {
     const [visibleRight, setVisibleRight] = useState(false);
-    const { data, loading, error, refetch } = Get(`stage/${props.idfile}`);
+    const { data, loading } = Get(`stage/${props.idfile}`);
     if (loading) return <p>loading</p>
 
     const findDate = (element) => {
@@ -31,8 +30,6 @@ export default function Progress(props) {
                 <Timeline value={events} opposite={(item) => item.status}
                     content={(item) => <small className="text-color-secondary">{item.date}</small>} />
             </Sidebar>
-
-
         </div>
     )
 }

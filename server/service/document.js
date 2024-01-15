@@ -1,13 +1,6 @@
 const base64toFile = require('node-base64-to-file');
 const { unlink } = require('node:fs/promises');
-const axios = require('axios');
-const { log } = require('node:console');
 exports.uploadDocument = async (base64String, name, type, fileId) => {
-
-  const document = `data:${type};base64,`.concat(base64String);
-
-  console.log(`${process.env.PATH_FILE}${fileId}//`);
-  console.log({base64String});
 
   await base64toFile(base64String,
     {
@@ -17,10 +10,7 @@ exports.uploadDocument = async (base64String, name, type, fileId) => {
       fileMaxSize: 1000000000
     }
   );
-
-
 };
-
 
 exports.deleteDocument = async (document) => {
 
@@ -47,9 +37,4 @@ exports.getOpenDocument = (res, path, fileName) => {
       console.log('Sent:', fileName);
     }
   });
-
-}
-
-exports.verifyDocument = async (path) => {
-
 }

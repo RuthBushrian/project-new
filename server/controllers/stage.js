@@ -19,26 +19,6 @@ exports.addStage = async (req, res) => {
     });
 };
 
-// exports.getStagebyFileId = (req, res) => {
-//   const fileId = req.params.fileId;
-//   stageDal
-//     .getStagebyFileId(fileId)
-//     .then((data) => {
-//       if (data) {
-//         res.send(data);
-//       } else {
-//         res.status(404).send({
-//           message: `Cannot find stage with fileId= ${fileId}.`,
-//         });
-//       }
-//     })
-//     .catch((err) => {
-//       res.status(500).send({
-//         message: `Error retrieving stage with FileId= ${fileId}.`,
-//       });
-//     });
-// };
-
 exports.getStagebyFileId = (req, res) => {
   const fileId = req.params.fileId;
   stageDal
@@ -68,26 +48,3 @@ exports.getStagebyFileId = (req, res) => {
       });
     });
 };
-
-// exports.updateStagebyFileId = (req, res) => {
-//   const fileId = req.params.fileId;
-//   stageDal
-//     .updateStagebyFileId(fileId, req.body)
-//     .then((num) => {
-//       if (num == 1) {
-//         res.send({
-//           message: "stage was updated successfully.",
-//         });
-//       } else {
-//         res.send({
-//           message: `Cannot update stage with fileId= ${fileId}. Maybe stage was not found or req.body is empty!`,
-//         });
-//       }
-//     })
-//     .catch((err) => {
-//       res.status(500).send({
-//         message: `Error updating stage with fileId= ${fileId}.`,
-//       });
-//     });
-// };
-

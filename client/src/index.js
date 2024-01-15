@@ -6,7 +6,6 @@ import 'primereact/resources/themes/lara-light-indigo/theme.css';   // theme
 import 'primereact/resources/primereact.css';                       // core css
 import 'primeicons/primeicons.css'; 
 
-
 import {BrowserRouter as Router} from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -15,7 +14,6 @@ root.render(
     <Router>
     <App/>
     </Router>
-
   </React.StrictMode>
 );
 

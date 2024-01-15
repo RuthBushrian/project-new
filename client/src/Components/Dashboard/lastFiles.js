@@ -1,20 +1,15 @@
-
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Get } from '../../Hooks/fetchWithHook';
 
-
-
 function GetLasts(props) {
     const { data: dataFiles, loading: loadingFiles, error: errorFiles, refetch: refetchFiles } = Get(`dash/5/${props.id}`);
-    console.log(`dash/5/${props.id}`)
 
     if (loadingFiles) {
         return <p>Loading...</p>;
     }
     if (errorFiles) { return <p>Error!</p>; }
-
 
     const dateWithHoure = (options, x) => {
         const d = new Date(options[x]);
@@ -28,7 +23,6 @@ function GetLasts(props) {
     }
 
     return (
-
         <div  >
             <DataTable value={dataFiles} rows={5} responsiveLayout="scroll" dataKey="file.idfile" className="text-right" >
                 <Column className="text-right" field="file.IDnumberOfApplicant" header="מספר בקשה" sortable style={{ minWidth: '12rem' }}></Column>

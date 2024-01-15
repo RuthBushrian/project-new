@@ -6,7 +6,7 @@ import ImageComponent from './imageRes';
 
 function Result(props) {
 
-    const { data, loading, error, refetch } = props.details ? Get(`document/file/${props.details.idfile}`) : {};
+    const { data, loading, error } = props.details ? Get(`document/file/${props.details.idfile}`) : {};
     console.log(data);
       
     if (loading) {
@@ -30,8 +30,6 @@ function Result(props) {
                     <div className="flex flex-row flex-column border-1 surface-border border-round m-2 text-center py-1 px-2 ">
                         <div className="mb-3 flex align-items-start flex-wrap card-container yellow-container justify-content-center flex-wrap card-container yellow-container">
                             <div className="col-12 ">
-                                {/* <iframe src={`http://localhost:4321/document/${props.details.idfile}/${data.name}/${data.docType}`}
-                                    style={{ height: "500px" }}></iframe> */}
                                     <ImageComponent src={`http://localhost:4321/document/${props.details.idfile}/${data.name}/${data.docType}`}></ImageComponent>
                                 <p></p></div>
                                 {console.log(data)}

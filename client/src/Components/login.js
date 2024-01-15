@@ -24,7 +24,6 @@ export default function Login(props) {
             const response = await Get(`officer/${formik.values.userName}/${formik.values.password}`)
             props.setUserId(response.data.idofficer);
             navigate("/openfile")
-
         }
         catch (e) {
             setVisible(true)
@@ -86,9 +85,7 @@ export default function Login(props) {
                                 <label htmlFor="userName">שם משתמש</label>
                             </span>
                             {getFormErrorMessage('userName')}
-
-
-
+                            
                             <span className="p-float-label">
                                 <Password
                                     id="password"

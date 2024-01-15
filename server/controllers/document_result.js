@@ -1,6 +1,5 @@
 const ResultDal=require('../dal/document_result');
 
-
 exports.addResult=(req, res)=>{
     console.log("contoller");
   if (!req.body) {
@@ -9,6 +8,7 @@ exports.addResult=(req, res)=>{
     });
     return;
   }
+  
   ResultDal.addResult(req.body)
     .then(data => {
       res.status(201).json({ message: 'created result' }) 
