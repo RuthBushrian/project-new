@@ -1,14 +1,13 @@
 const ResultDal=require('../dal/document_result');
 
 exports.addResult=(req, res)=>{
-    console.log("contoller");
   if (!req.body) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
     return;
   }
-  
+
   ResultDal.addResult(req.body)
     .then(data => {
       res.status(201).json({ message: 'created result' }) 

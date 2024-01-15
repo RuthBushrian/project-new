@@ -28,8 +28,6 @@ exports.getOpenDocument = (res, path, fileName) => {
   const options = {
     root: path
   };
-  console.log(path);
-  console.log(fileName);
   res.sendFile(fileName, options, function (err) {
     if (err) {
       console.log(err);

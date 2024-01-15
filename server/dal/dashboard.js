@@ -10,9 +10,7 @@ const Op= sequelize.Op;
 exports.getLastFiles= (numOfFiles, officerId)=>
 {
     const statusOfChecked=2;
-
-    console.log("officerId", officerId);
-
+    
     return Stages.findAll(
         {  
             include:

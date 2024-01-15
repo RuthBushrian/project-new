@@ -71,11 +71,7 @@ exports.getNumOfDocuments = async (req, res) => {
   try {
     const officer = await officerDal.getOfficerById(id);
     const used = await officerDal.getNumOfUsedDocuments(id);
-    console.log(officer.numOfDocuments);
-    console.log("officer " + used);
     if (officer && used >= 0) {
-      console.log(officer.numOfDocuments);
-      console.log("officer " + used);
       res.send({ 'num': officer.numOfDocuments - used });
     }
     else {

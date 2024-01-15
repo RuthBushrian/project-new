@@ -16,7 +16,6 @@ exports.createFolder = (folderName) => {
 }
 
 exports.deleteFolder = (folderName) => {
-
     try {
         fs.rmSync(folderName, { recursive: true, force: true });
     }

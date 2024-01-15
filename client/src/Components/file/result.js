@@ -7,7 +7,6 @@ import ImageComponent from './imageRes';
 function Result(props) {
 
     const { data, loading, error } = props.details ? Get(`document/file/${props.details.idfile}`) : {};
-    console.log(data);
       
     if (loading) {
         return <p>Loading...</p>;
@@ -32,7 +31,6 @@ function Result(props) {
                             <div className="col-12 ">
                                     <ImageComponent src={`http://localhost:4321/document/${props.details.idfile}/${data.name}/${data.docType}`}></ImageComponent>
                                 <p></p></div>
-                                {console.log(data)}
                             {!props.isDoc ? <div>מספר מסמך: {data.iddocument} תוצאת מסמך: {data.result}</div>: 
                             <div>{data.name}.{data.docType}</div>} 
                         </div>

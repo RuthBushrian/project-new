@@ -43,7 +43,6 @@ const addIncludeForQry=(qry) =>
 
 exports.getAllFiles= (filterParams)=>{
 
-    console.log(filterParams);
     //where
     let wh={};
 
@@ -100,7 +99,6 @@ exports.deleteFileByID=(id)=>{
 
 exports.deleteFiles=(idArr)=>
 {
-    console.log("dal");
     return File.destroy({
 
         where: { idfile: {[Op.or]:idArr }}

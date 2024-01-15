@@ -5,12 +5,10 @@ const File = db.files;
 const sequelize = require("sequelize");
 
 exports.getOfficerByIDNumber = (id) => {
-  console.log(Officer);
   return Officer.findOne({ where: { idNumber: id } });
 };
 
 exports.getOfficerById = (id) => {
-  console.log("getOfficerByIdNumber");
   return Officer.findByPk(id);
 };
 

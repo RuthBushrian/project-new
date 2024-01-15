@@ -75,9 +75,6 @@ const ViewResults = (props) => {
                 </div>
                 <div class="col-12 md:col-12 lg:col-7 ">
                     <div dir={'rtl'}>
-                    {console.log("props.details")}
-
-                        {console.log(props.details)}
                         <Result details={props.details}></Result>
                     </div>
                 </div>
